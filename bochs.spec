@@ -1,11 +1,11 @@
 # TODO:
-#	- more --with and --enable in configure
+#	- more subpackages (plugins)
 
 Summary:	Portable x86 PC Emulator
 Summary(pl):	Przeno¶ny emulator x86 PC
 Name:		bochs
 Version:	2.0
-Release:	1.1
+Release:	1.2
 License:	GPL
 Group:		Applications/Emulators
 Source0:	http://telia.dl.sourceforge.net/sourceforge/bochs/%{name}-%{version}.tar.gz
@@ -13,6 +13,8 @@ URL:		http://bochs.sourceforge.net/
 BuildRequires:	XFree86-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	wxGTK-devel
+BuildRequires:	SDL-devel
+BuildRequires: 	svgalib-devel
 #vga.pcf.gz
 Requires:	XFree86-fonts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -34,10 +36,24 @@ Twoim komputerze.
 %build
 %configure \
 	--enable-cdrom \
-	--enable-cpu-level=6 \
+	--enable-cpu-level=5 \
 	--enable-vbe \
+	--enable-sb16=linux \
+	--enable-configure-interface \
+	--enable-new-pit \
+	--enable-ne2000 \
+	--enable-plugins \
+	--enable-repeat-speedups \
+	--enable-icache \
+	--enable-host-specific-asms \
+	--enable-all-optimizations \
+	--enable-mmx \
+	--enable-sse=2 \
 	--with-x \
 	--with-wx \
+	--with-rfb \
+	--with-sdl \
+	--with-svga \
 	--with-x11
 	
 %{__make}
@@ -72,6 +88,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/%{name}/keymaps
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_datadir}/%{name}/keymaps/convertmap.pl
+%attr(755,root,root) %{_libdir}/%{name}/plugins/*.so.*
+%{_libdir}/%{name}/plugins/*.la
 %{_datadir}/%{name}/keymaps/*.map
 %{_datadir}/%{name}/*BIOS*
 %{_mandir}/man[15]/*
