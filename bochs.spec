@@ -9,6 +9,8 @@ Group(de):	Applikationen/Emulators
 Group(pl):	Aplikacje/Emulatory
 Source0:	http://prdownloads.sourceforge.net/bochs/%{name}-%{version}.tar.gz
 URL:		http://bochs.sourceforge.net/
+BuildRequires:	XFree86-devel
+BuildRequires:	libstdc++-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
