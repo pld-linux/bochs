@@ -1,11 +1,11 @@
 Summary:	Portable x86 PC Emulator
 Summary(pl):	Przeno¶ny emulator x86 PC
 Name:		bochs
-Version:	1.3
-Release:	1
+Version:	1.4.1
+Release:	0.5
 License:	GPL
 Group:		Applications/Emulators
-Source0:	http://prdownloads.sourceforge.net/bochs/%{name}-%{version}.tar.gz
+Source0:	http://telia.dl.sourceforge.net/sourceforge/bochs/%{name}-%{version}.tar.gz
 URL:		http://bochs.sourceforge.net/
 BuildRequires:	XFree86-devel
 BuildRequires:	libstdc++-devel
@@ -26,12 +26,14 @@ Twoim komputerze.
 %setup -q
 
 %build
-%configure2_13 \
-	--with-x \
-	--enable-cpu-level=5 \
-	--enable-vga \
-	--enable-fpu \
+%configure \
 	--enable-cdrom \
+	--enable-control-panel \
+	--enable-cpu-level=6 \
+	--enable-fpu \
+	--enable-vbe \
+	--enable-vga \
+	--with-x \
 	--with-x11
 %{__make}
 cd font
@@ -56,9 +58,7 @@ echo "Example .bochrc file - put it into selected directory and modify" \
      "path to images" >.bochsrc
 sed -e 's#bios#%{_datadir}/bochs/bios#g' <.brc >>.bochsrc
 
-gzip -9nf bios/VGABIOS-elpin-LICENSE .bochsrc font/*.pcf CHANGES TESTFORM.txt
-
-install font/hercules.pcf* $RPM_BUILD_ROOT%{_datadir}/fonts/misc
+install font/hercules.pcf $RPM_BUILD_ROOT%{_datadir}/fonts/misc
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -76,7 +76,7 @@ killall -USR1 xfs > /dev/null 2>&1 ||:
 
 %files
 %defattr(644,root,root,755)
-%doc docs-html/*.html bios/VGABIOS-elpin-LICENSE* .bochsrc* *.gz
+%doc docs-html/*.html bios/VGABIOS-elpin-LICENSE .bochsrc CHANGES TESTFORM.txt font/*.pcf
 %attr(755,root,root) %{_bindir}/bochs
 %attr(755,root,root) %{_bindir}/bximage
 %dir %{_datadir}/bochs
