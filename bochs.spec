@@ -37,7 +37,7 @@ Windows '95, Minix 2.0, and other OS's, all on your workstation.
 %description -l pl
 Bochs jest przeno¶nym emulatorem x86 PC emuluj±cym wystarczaj±co du¿o
 architektury procesora x86 oraz hardware'u AT i BIOS-u ¿eby uruchomiæ
-DOS-a, Windows 95, Minix 2.0 i inne systemu operacyjne, wszystkie na
+DOS-a, Windows 95, Minix 2.0 i inne systemy operacyjne, wszystkie na
 Twoim komputerze.
 
 %prep
