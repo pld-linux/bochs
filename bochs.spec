@@ -7,8 +7,8 @@ License:	GPL
 Group:		Applications/Emulators
 Group(de):	Applikationen/Emulators
 Group(pl):	Aplikacje/Emulatory
-Source0:	ftp://bochs.com/pub/%{name}-%{version}.tar.gz
-URL:		http://www.bochs.com/
+Source0:	http://prdownloads.sourceforge.net/bochs/%{name}-%{version}.tar.gz
+URL:		http://bochs.sourceforge.net/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
