@@ -10,6 +10,7 @@ License:	GPL
 Group:		Applications/Emulators
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # Source0-md5:	11bb4e7804f9fef3cda3822f03641b55
+Patch0:		%{name}-cpu.patch
 URL:		http://bochs.sourceforge.net/
 BuildRequires:	XFree86-devel
 BuildRequires:	docbook-dtd41-sgml
@@ -34,6 +35,7 @@ Twoim komputerze.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %configure \
