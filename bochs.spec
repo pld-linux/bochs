@@ -12,7 +12,6 @@ Group:		Applications/Emulators
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.%{pre}.tar.gz
 # Source0-md5:	d9cf6b0373c40e636368f73859544269
 Patch0:		%{name}-ncurses.patch
-Patch1:		%{name}-wxGTK.patch
 URL:		http://bochs.sourceforge.net/
 BuildRequires:	SDL-devel
 BuildRequires:	XFree86-devel
@@ -21,7 +20,7 @@ BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	svgalib-devel
-BuildRequires:	wxGTK-devel
+BuildRequires:	wxGTK2-devel
 BuildRequires:	zlib-devel
 Requires:	XFree86-fonts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -40,7 +39,6 @@ Twoim komputerze.
 %prep
 %setup -q -n %{name}-%{version}.%{pre}
 %patch0	-p1
-%patch1	-p1
 
 %build
 %{__autoconf}
@@ -48,6 +46,7 @@ Twoim komputerze.
 # --enable-debugger --enable-iodebug --enable-x86-debugger (slowdowns emulation)
 # --enable-apic (no need to specify, configure will choose best depending on nr cpus)
 %configure \
+	WX_CONFIG=wxgtk2-2.4-config \
 	--enable-config-interface \
 	--enable-new-pit \
 	--enable-plugins \
