@@ -16,7 +16,7 @@ BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	libstdc++-devel
 BuildRequires:	wxGTK-devel
 BuildRequires:	SDL-devel
-BuildRequires: 	svgalib-devel
+BuildRequires:	svgalib-devel
 #vga.pcf.gz
 Requires:	XFree86-fonts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
