@@ -37,10 +37,12 @@ Twoim komputerze.
 	--with-x11
 %{__make}
 cd font
-for i in vga.bdf hercules.bdf; 
-do
-	bdftopcf $i -o `basename $i .bdf`.pcf
-done;
+#for i in vga.bdf hercules.bdf; 
+#do
+#	bdftopcf $i -o `basename $i .bdf`.pcf
+#done;
+# vga.pcf has moved to XFree86-fonts
+bdftopcf hercules.bdf -o hercules.pcf
 cd ..
 
 %install
