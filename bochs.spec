@@ -57,7 +57,7 @@ Twoim komputerze.
 	--with-sdl \
 	--with-svga \
 	--with-x11
-	
+
 %{__make}
 
 %install
@@ -71,7 +71,7 @@ mv -f $RPM_BUILD_ROOT%{_datadir}/bochs/VGABIOS*{LICENSE,README,latest} \
     $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
 cp -f TESTFORM.txt $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
-    
+
 rm -f $RPM_BUILD_ROOT%{_datadir}/bochs/*fonts
 rm -f $RPM_BUILD_ROOT%{_datadir}/bochs/*pcf
 
