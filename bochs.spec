@@ -1,12 +1,9 @@
 # TODO:
 #	- more subpackages (plugins)
-
+#
 # Conditional build:
 %bcond_without  svga    # without svgalib support
 #
-%ifnarch %{ix86} alpha
-%undefine with_svga
-%endif
 Summary:	Portable x86 PC Emulator
 Summary(pl):	Przeno¶ny emulator x86 PC
 Name:		bochs
