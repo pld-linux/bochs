@@ -2,7 +2,7 @@ Summary:	Portable x86 PC Emulator
 Summary(pl):	Przeno¶ny emulator x86 PC
 Name:		bochs
 Version:	1.4.1
-Release:	0.5
+Release:	0.6
 License:	GPL
 Group:		Applications/Emulators
 Source0:	http://telia.dl.sourceforge.net/sourceforge/bochs/%{name}-%{version}.tar.gz
@@ -50,8 +50,8 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT/{%{_bindir},%{_datadir}/bochs/bios,%{_datadir}/fonts/misc,%{_mandir}/man1}
 install bochs install-x11-fonts bximage $RPM_BUILD_ROOT/%{_bindir}
-install bios/BIOS-bochs-latest* bios/VGABIOS-elpin-2.40 $RPM_BUILD_ROOT%{_datadir}/bochs/bios
-install doc/man/{bochs,bochsrc,bximage}.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install bios/BIOS-bochs* bios/VGABIOS-elpin-2.40 $RPM_BUILD_ROOT%{_datadir}/bochs/bios
+install doc/man/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 mv -f .bochsrc .brc
 echo "Example .bochrc file - put it into selected directory and modify" \
@@ -76,7 +76,7 @@ killall -USR1 xfs > /dev/null 2>&1 ||:
 
 %files
 %defattr(644,root,root,755)
-%doc docs-html/*.html bios/VGABIOS-elpin-LICENSE .bochsrc CHANGES TESTFORM.txt font/*.pcf
+%doc docs-html/*.html bios/VGABIOS-{elpin-LICENSE,lgpl-README} .bochsrc CHANGES TESTFORM.txt font/*.pcf
 %attr(755,root,root) %{_bindir}/bochs
 %attr(755,root,root) %{_bindir}/bximage
 %dir %{_datadir}/bochs
