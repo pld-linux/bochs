@@ -1,7 +1,12 @@
 # TODO:
 #	- more subpackages (plugins)
 
-#%define	pre	pre3
+# Conditional build:
+%bcond_without  svga    # without svgalib support
+#
+%ifnarch %{ix86} alpha
+%undefine with_svga
+%endif
 Summary:	Portable x86 PC Emulator
 Summary(pl):	Przeno¶ny emulator x86 PC
 Name:		bochs
@@ -17,9 +22,10 @@ BuildRequires:	SDL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	docbook-dtd41-sgml
+BuildRequires:	gtk+-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel
-BuildRequires:	svgalib-devel
+%{?with_svga:BuildRequires:	svgalib-devel}
 BuildRequires:	wxGTK2-devel
 BuildRequires:	zlib-devel
 Requires:	XFree86-fonts
@@ -83,7 +89,7 @@ Twoim komputerze.
 	--with-wx \
 	--with-rfb \
 	--with-sdl \
-	--with-svga \
+	%{?with_svga:-with-svga} \
 	--with-x11 \
 	--with-term \
 	--with-rfb
