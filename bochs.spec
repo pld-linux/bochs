@@ -1,16 +1,16 @@
 # TODO:
 #	- more subpackages (plugins)
 
-%define	pre	pre3
+#%define	pre	pre3
 Summary:	Portable x86 PC Emulator
 Summary(pl):	Przeno¶ny emulator x86 PC
 Name:		bochs
-Version:	2.1
-Release:	0.%{pre}.1
+Version:	2.1.1
+Release:	1
 License:	GPL
 Group:		Applications/Emulators
-Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.%{pre}.tar.gz
-# Source0-md5:	d9cf6b0373c40e636368f73859544269
+Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+# Source0-md5:	7b21efbe2b56cc15d110993234259b33
 Patch0:		%{name}-ncurses.patch
 URL:		http://bochs.sourceforge.net/
 BuildRequires:	SDL-devel
@@ -37,7 +37,7 @@ DOS-a, Windows 95, Minix 2.0 i inne systemu operacyjne, wszystkie na
 Twoim komputerze.
 
 %prep
-%setup -q -n %{name}-%{version}.%{pre}
+%setup -q
 %patch0	-p1
 
 %build
@@ -102,10 +102,10 @@ mv -f $RPM_BUILD_ROOT%{_datadir}/bochs/VGABIOS*{LICENSE,README,latest} \
 
 cp -f TESTFORM.txt $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
-rm -f $RPM_BUILD_ROOT%{_datadir}/bochs/*fonts
-rm -f $RPM_BUILD_ROOT%{_datadir}/bochs/*pcf
+#rm -f $RPM_BUILD_ROOT%{_datadir}/bochs/*fonts
+#rm -f $RPM_BUILD_ROOT%{_datadir}/bochs/*pcf
 
-find $RPM_BUILD_ROOT -type d -name CVS | xargs rm -rf
+#find $RPM_BUILD_ROOT -type d -name CVS | xargs rm -rf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
