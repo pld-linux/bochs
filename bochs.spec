@@ -11,7 +11,7 @@ Summary:	Portable x86 PC Emulator
 Summary(pl):	Przeno¶ny emulator x86 PC
 Name:		bochs
 Version:	2.1.1
-Release:	1
+Release:	1.1
 License:	GPL
 Group:		Applications/Emulators
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -21,6 +21,7 @@ URL:		http://bochs.sourceforge.net/
 BuildRequires:	SDL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	gtk+-devel
 BuildRequires:	libstdc++-devel
@@ -47,6 +48,7 @@ Twoim komputerze.
 %patch0	-p1
 
 %build
+cp -f /usr/share/automake/config.sub .
 %{__autoconf}
 # --enable-x86-64 (not supported together with --enable-sep)
 # --enable-debugger --enable-iodebug --enable-x86-debugger (slowdowns emulation)
