@@ -5,12 +5,14 @@ Summary:	Portable x86 PC Emulator
 Summary(pl):	Przeno¶ny emulator x86 PC
 Name:		bochs
 Version:	2.0.2
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Emulators
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # Source0-md5:	11bb4e7804f9fef3cda3822f03641b55
 Patch0:		%{name}-cpu.patch
+Patch1:		%{name}-ncurses.patch
+Patch2:		%{name}-wxGTK.patch
 URL:		http://bochs.sourceforge.net/
 BuildRequires:	XFree86-devel
 BuildRequires:	docbook-dtd41-sgml
@@ -18,6 +20,7 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	wxGTK-devel
 BuildRequires:	SDL-devel
 BuildRequires:	svgalib-devel
+BuildRequires:	autoconf
 #vga.pcf.gz
 Requires:	XFree86-fonts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -35,9 +38,12 @@ Twoim komputerze.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch0	-p1
+%patch1	-p1
+%patch2	-p1
 
 %build
+%{__autoconf}
 %configure \
 	--enable-cdrom \
 	--enable-cpu-level=5 \
@@ -58,7 +64,9 @@ Twoim komputerze.
 	--with-rfb \
 	--with-sdl \
 	--with-svga \
-	--with-x11
+	--with-x11 \
+	--with-term \
+	--with-rfb
 
 %{__make}
 
