@@ -14,13 +14,13 @@ Patch0:		%{name}-cpu.patch
 Patch1:		%{name}-ncurses.patch
 Patch2:		%{name}-wxGTK.patch
 URL:		http://bochs.sourceforge.net/
+BuildRequires:	SDL-devel
 BuildRequires:	XFree86-devel
+BuildRequires:	autoconf
 BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	libstdc++-devel
-BuildRequires:	wxGTK-devel
-BuildRequires:	SDL-devel
 BuildRequires:	svgalib-devel
-BuildRequires:	autoconf
+BuildRequires:	wxGTK-devel
 #vga.pcf.gz
 Requires:	XFree86-fonts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -33,7 +33,7 @@ Windows '95, Minix 2.0, and other OS's, all on your workstation.
 %description -l pl
 Bochs jest przeno¶nym emulatorem x86 PC emuluj±cym wystarczaj±co du¿o
 architektury procesora x86 oraz hardware'u AT i BIOS-u ¿eby uruchomiæ
-DOS-a, Windows'95, Minix 2.0 i inne systemu operacyjne, wszystkie na
+DOS-a, Windows 95, Minix 2.0 i inne systemu operacyjne, wszystkie na
 Twoim komputerze.
 
 %prep
@@ -74,8 +74,8 @@ Twoim komputerze.
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-    DESTDIR=$RPM_BUILD_ROOT \
-    docdir=%{_docdir}/%{name}-%{version}
+	DESTDIR=$RPM_BUILD_ROOT \
+	docdir=%{_docdir}/%{name}-%{version}
 
 mv -f $RPM_BUILD_ROOT%{_datadir}/bochs/VGABIOS*{LICENSE,README,latest} \
     $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
@@ -85,23 +85,21 @@ cp -f TESTFORM.txt $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 rm -f $RPM_BUILD_ROOT%{_datadir}/bochs/*fonts
 rm -f $RPM_BUILD_ROOT%{_datadir}/bochs/*pcf
 
-DIRS=`find $RPM_BUILD_ROOT -type d -name CVS`
-for DIR in $DIRS
-do
-    rm -rf $DIR
-done
+find $RPM_BUILD_ROOT -type d -name CVS | xargs rm -rf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%dir %{_datadir}/%{name}
-%dir %{_datadir}/%{name}/keymaps
 %attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_datadir}/%{name}/keymaps/convertmap.pl
+%dir %{_libdir}/%{name}
+%dir %{_libdir}/%{name}/plugins
 %attr(755,root,root) %{_libdir}/%{name}/plugins/*.so.*
 %{_libdir}/%{name}/plugins/*.la
+%dir %{_datadir}/%{name}
+%dir %{_datadir}/%{name}/keymaps
+%attr(755,root,root) %{_datadir}/%{name}/keymaps/convertmap.pl
 %{_datadir}/%{name}/keymaps/*.map
 %{_datadir}/%{name}/*BIOS*
 %{_mandir}/man[15]/*
