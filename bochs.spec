@@ -1,5 +1,5 @@
 Summary:	Portable x86 PC Emulator
-Summary(pl):	Przeno¶ny emulator x96 PC
+Summary(pl):	Przeno¶ny emulator x86 PC
 Name:		bochs
 Version:	1.1.2
 Release:	1
