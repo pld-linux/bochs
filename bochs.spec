@@ -8,7 +8,7 @@ Version:	2.0.2
 Release:	1
 License:	GPL
 Group:		Applications/Emulators
-Source0:	http://telia.dl.sourceforge.net/sourceforge/bochs/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 URL:		http://bochs.sourceforge.net/
 BuildRequires:	XFree86-devel
 BuildRequires:	docbook-dtd41-sgml
