@@ -2,7 +2,7 @@
 #	- more subpackages (plugins)
 #
 # Conditional build:
-%bcond_without  svga    # without svgalib support
+%bcond_without	svga	# without svgalib support
 #
 Summary:	Portable x86 PC Emulator
 Summary(pl):	Przeno¶ny emulator x86 PC
@@ -103,7 +103,7 @@ rm -rf $RPM_BUILD_ROOT
 	docdir=%{_docdir}/%{name}-%{version}
 
 mv -f $RPM_BUILD_ROOT%{_datadir}/bochs/VGABIOS*{LICENSE,README,latest} \
-    $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+	$RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
 cp -f TESTFORM.txt $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
