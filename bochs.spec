@@ -28,7 +28,7 @@ twoim komputerze.
 %setup -q
 
 %build
-%configure \
+%configure2_13 \
 	--with-x \
 	--enable-cpu-level=5 \
 	--enable-vga \
