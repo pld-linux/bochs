@@ -1,11 +1,10 @@
 Summary:	Portable x86 PC Emulator
 Summary(pl):	Przeno¶ny emulator x96 PC
 Name:		bochs
-Version:	2000_0325a
+Version:	1.1.2
 Release:	1
 License:	GPL
 Group:		Applications/Emulators
-Group(de):	Applikationen/Emulators
 Group(pl):	Aplikacje/Emulatory
 Source0:	ftp://bochs.com/pub/%{name}-%{version}.tar.gz
 URL:		http://www.bochs.com/
@@ -29,7 +28,6 @@ twoim komputerze.
 %configure \
 	--with-x \
 	--enable-cpu-level=5 \
-	--enable-pci \
 	--enable-vga \
 	--enable-fpu \
 	--enable-cdrom \
@@ -41,7 +39,7 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT/{%{_bindir},%{_datadir}/bochs/bios}
 install bochs $RPM_BUILD_ROOT/%{_bindir}
-install bios/BIOS-bochs-990925a bios/VGABIOS-elpin-2.20 $RPM_BUILD_ROOT%{_datadir}/bochs/bios
+install bios/BIOS-bochs-990925a bios/VGABIOS-elpin-2.40 $RPM_BUILD_ROOT%{_datadir}/bochs/bios
 mv -f .bochsrc .brc
 echo "Example .bochrc file - put it into selected directory and modify" \
      "path to images" >.bochsrc
