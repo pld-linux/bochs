@@ -1,27 +1,28 @@
 # TODO:
 #	- more subpackages (plugins)
 
+%define	pre	pre3
 Summary:	Portable x86 PC Emulator
 Summary(pl):	Przeno¶ny emulator x86 PC
 Name:		bochs
-Version:	2.0.2
-Release:	2
+Version:	2.1
+Release:	0.%{pre}.1
 License:	GPL
 Group:		Applications/Emulators
-Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-# Source0-md5:	11bb4e7804f9fef3cda3822f03641b55
-Patch0:		%{name}-cpu.patch
-Patch1:		%{name}-ncurses.patch
-Patch2:		%{name}-wxGTK.patch
+Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.%{pre}.tar.gz
+# Source0-md5:	d9cf6b0373c40e636368f73859544269
+Patch0:		%{name}-ncurses.patch
+Patch1:		%{name}-wxGTK.patch
 URL:		http://bochs.sourceforge.net/
 BuildRequires:	SDL-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	libstdc++-devel
+BuildRequires:	ncurses-devel
 BuildRequires:	svgalib-devel
 BuildRequires:	wxGTK-devel
-#vga.pcf.gz
+BuildRequires:	zlib-devel
 Requires:	XFree86-fonts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -37,28 +38,48 @@ DOS-a, Windows 95, Minix 2.0 i inne systemu operacyjne, wszystkie na
 Twoim komputerze.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}.%{pre}
 %patch0	-p1
 %patch1	-p1
-%patch2	-p1
 
 %build
 %{__autoconf}
+# --enable-x86-64 (not supported together with --enable-sep)
+# --enable-debugger --enable-iodebug --enable-x86-debugger (slowdowns emulation)
+# --enable-apic (no need to specify, configure will choose best depending on nr cpus)
 %configure \
-	--enable-cdrom \
-	--enable-cpu-level=5 \
-	--enable-vbe \
-	--enable-sb16=linux \
-	--enable-configure-interface \
+	--enable-config-interface \
 	--enable-new-pit \
-	--enable-ne2000 \
 	--enable-plugins \
+	--enable-cpu-level=6 \
+	--enable-compressed-hd \
+	--enable-ne2000 \
+	--enable-pci \
+	--enable-usb \
+	--enable-4meg-pages \
+	--enable-pae \
+	--enable-guest2host-tlb \
 	--enable-repeat-speedups \
 	--enable-icache \
+%ifarch %{ix86}
+	--enable-fast-function-calls \
+%endif
+	--enable-global-pages \
 	--enable-host-specific-asms \
+	--enable-ignore-bad-msr \
+	--enable-disasm \
 	--enable-all-optimizations \
+	--enable-readline \
+	--enable-instrumentation \
+	--enable-vbe \
+	--enable-fpu \
 	--enable-mmx \
+	--enable-3dnow \
 	--enable-sse=2 \
+	--enable-sep \
+	--enable-cdrom \
+	--enable-sb16=linux \
+	--enable-gameport \
 	--with-x \
 	--with-wx \
 	--with-rfb \
