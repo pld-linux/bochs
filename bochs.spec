@@ -1,14 +1,19 @@
+# TODO:
+#	- more --with and --enable in configure
+
 Summary:	Portable x86 PC Emulator
 Summary(pl):	Przeno¶ny emulator x86 PC
 Name:		bochs
-Version:	1.4.1
-Release:	0.6
+Version:	2.0
+Release:	1
 License:	GPL
 Group:		Applications/Emulators
 Source0:	http://telia.dl.sourceforge.net/sourceforge/bochs/%{name}-%{version}.tar.gz
 URL:		http://bochs.sourceforge.net/
 BuildRequires:	XFree86-devel
 BuildRequires:	libstdc++-devel
+#vga.pcf.gz
+Requires:	XFree86-fonts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -28,58 +33,44 @@ Twoim komputerze.
 %build
 %configure \
 	--enable-cdrom \
-	--enable-control-panel \
 	--enable-cpu-level=6 \
-	--enable-fpu \
 	--enable-vbe \
-	--enable-vga \
 	--with-x \
 	--with-x11
+	
 %{__make}
-cd font
-#for i in vga.bdf hercules.bdf;
-#do
-#	bdftopcf $i -o `basename $i .bdf`.pcf
-#done;
-# vga.pcf has moved to XFree86-fonts
-bdftopcf hercules.bdf -o hercules.pcf
-cd ..
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT/{%{_bindir},%{_datadir}/bochs/bios,%{_datadir}/fonts/misc,%{_mandir}/man1}
-install bochs install-x11-fonts bximage $RPM_BUILD_ROOT/%{_bindir}
-install bios/BIOS-bochs* bios/VGABIOS-elpin-2.40 $RPM_BUILD_ROOT%{_datadir}/bochs/bios
-install doc/man/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
+%{__make} install \
+    DESTDIR=$RPM_BUILD_ROOT \
+    docdir=%{_docdir}/%{name}-%{version}
 
-mv -f .bochsrc .brc
-echo "Example .bochrc file - put it into selected directory and modify" \
-     "path to images" >.bochsrc
-sed -e 's#bios#%{_datadir}/bochs/bios#g' <.brc >>.bochsrc
+mv -f $RPM_BUILD_ROOT%{_datadir}/bochs/VGABIOS*{LICENSE,README,latest} \
+    $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
-install font/hercules.pcf $RPM_BUILD_ROOT%{_datadir}/fonts/misc
+cp -f TESTFORM.txt $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+    
+rm -f $RPM_BUILD_ROOT%{_datadir}/bochs/*fonts
+rm -f $RPM_BUILD_ROOT%{_datadir}/bochs/*pcf
+
+DIRS=`find $RPM_BUILD_ROOT -type d -name CVS`
+for DIR in $DIRS
+do
+    rm -rf $DIR
+done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-%post
-if [ -x /usr/X11R6/bin/mkfontdir ]; then
-        (cd /usr/share/fonts/misc; /usr/X11R6/bin/mkfontdir)
-fi
-killall -USR1 xfs > /dev/null 2>&1 ||:
-
-%postun
-if [ -x /usr/X11R6/bin/mkfontdir ]; then
-        (cd /usr/share/fonts/misc; /usr/X11R6/bin/mkfontdir)
-fi
-killall -USR1 xfs > /dev/null 2>&1 ||:
 
 %files
 %defattr(644,root,root,755)
-%doc docs-html/*.html bios/VGABIOS-{elpin-LICENSE,lgpl-README} .bochsrc CHANGES TESTFORM.txt font/*.pcf
-%attr(755,root,root) %{_bindir}/bochs
-%attr(755,root,root) %{_bindir}/bximage
-%dir %{_datadir}/bochs
-%{_datadir}/bochs/*
-%{_datadir}/fonts/misc/*.pcf*
-%{_mandir}/man1/*
+%dir %{_datadir}/%{name}
+%dir %{_datadir}/%{name}/keymaps
+%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_datadir}/%{name}/keymaps/convertmap.pl
+%{_datadir}/%{name}/keymaps/*.map
+%{_datadir}/%{name}/*BIOS*
+%{_mandir}/man[15]/*
+%{_docdir}/%{name}-%{version}
