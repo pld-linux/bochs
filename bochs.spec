@@ -35,7 +35,7 @@ Twoim komputerze.
 	--with-x11
 %{__make}
 cd font
-#for i in vga.bdf hercules.bdf; 
+#for i in vga.bdf hercules.bdf;
 #do
 #	bdftopcf $i -o `basename $i .bdf`.pcf
 #done;
@@ -46,10 +46,10 @@ cd ..
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT/{%{_bindir},%{_datadir}/bochs/bios,%{_datadir}/fonts/misc,%{_datadir}/man/man1}
+install -d $RPM_BUILD_ROOT/{%{_bindir},%{_datadir}/bochs/bios,%{_datadir}/fonts/misc,%{_mandir}/man1}
 install bochs install-x11-fonts bximage $RPM_BUILD_ROOT/%{_bindir}
 install bios/BIOS-bochs-latest* bios/VGABIOS-elpin-2.40 $RPM_BUILD_ROOT%{_datadir}/bochs/bios
-install doc/man/* $RPM_BUILD_ROOT%{_datadir}/man/man1
+install doc/man/* $RPM_BUILD_ROOT%{_mandir}/man1
 
 mv -f .bochsrc .brc
 echo "Example .bochrc file - put it into selected directory and modify" \
@@ -81,4 +81,4 @@ killall -USR1 xfs > /dev/null 2>&1 ||:
 %dir %{_datadir}/bochs
 %{_datadir}/bochs/*
 %{_datadir}/fonts/misc/*.pcf*
-%{_datadir}/man/man1/*
+%{_mandir}/man1/*
