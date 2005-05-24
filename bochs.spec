@@ -13,7 +13,6 @@ License:	GPL
 Group:		Applications/Emulators
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # Source0-md5:	7b21efbe2b56cc15d110993234259b33
-Patch0:		%{name}-ncurses.patch
 URL:		http://bochs.sourceforge.net/
 BuildRequires:	SDL-devel
 BuildRequires:	XFree86-devel
@@ -42,11 +41,12 @@ Twoim komputerze.
 
 %prep
 %setup -q
-%patch0	-p1
 
 %build
 cp -f /usr/share/automake/config.sub .
 %{__autoconf}
+CXXFLAGS="%{rpmcflags} -I/usr/include/ncurses"
+export CXXFLAGS
 # --enable-x86-64 (not supported together with --enable-sep)
 # --enable-debugger --enable-iodebug --enable-x86-debugger (slowdowns emulation)
 # --enable-apic (no need to specify, configure will choose best depending on nr cpus)
