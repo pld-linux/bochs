@@ -11,7 +11,7 @@ Version:	2.2
 Release:	1
 License:	GPL
 Group:		Applications/Emulators
-Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/bochs/%{name}-%{version}.tar.gz
 # Source0-md5:	2f0d82bda2193242a2d7ece1917016c1
 Patch0:		%{name}-instrumentation.patch
 URL:		http://bochs.sourceforge.net/
