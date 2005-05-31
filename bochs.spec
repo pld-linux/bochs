@@ -7,12 +7,13 @@
 Summary:	Portable x86 PC Emulator
 Summary(pl):	Przeno¶ny emulator x86 PC
 Name:		bochs
-Version:	2.1.1
-Release:	3
+Version:	2.2
+Release:	1
 License:	GPL
 Group:		Applications/Emulators
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-# Source0-md5:	7b21efbe2b56cc15d110993234259b33
+# Source0-md5:	2f0d82bda2193242a2d7ece1917016c1
+Patch0:		%{name}-instrumentation.patch
 URL:		http://bochs.sourceforge.net/
 BuildRequires:	SDL-devel
 BuildRequires:	XFree86-devel
@@ -41,6 +42,7 @@ Twoim komputerze.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 cp -f /usr/share/automake/config.sub .
@@ -124,7 +126,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/*.la
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/keymaps
-%attr(755,root,root) %{_datadir}/%{name}/keymaps/convertmap.pl
 %{_datadir}/%{name}/keymaps/*.map
 %{_datadir}/%{name}/*BIOS*
 %{_mandir}/man[15]/*
