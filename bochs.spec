@@ -8,7 +8,7 @@ Summary:	Portable x86 PC Emulator
 Summary(pl):	Przeno¶ny emulator x86 PC
 Name:		bochs
 Version:	2.2
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Emulators
 Source0:	http://dl.sourceforge.net/bochs/%{name}-%{version}.tar.gz
@@ -20,12 +20,13 @@ BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	docbook-dtd41-sgml
-BuildRequires:	gtk+-devel
+BuildRequires:	gtk+2-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel
 %{?with_svga:BuildRequires:	svgalib-devel}
 BuildRequires:	wxGTK2-devel
 BuildRequires:	zlib-devel
+BuildRequires:	pkgconfig
 Requires:	XFree86-fonts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -47,13 +48,21 @@ Twoim komputerze.
 %build
 cp -f /usr/share/automake/config.sub .
 %{__autoconf}
-CXXFLAGS="%{rpmcflags} -I/usr/include/ncurses"
-export CXXFLAGS
+CXXFLAGS="%{rpmcflags} -I/usr/include/ncurses `pkg-config gdk-2.0 --cflags`"
+LDFLAGS=`pkg-config gdk-2.0 --libs`
+export CXXFLAGS LDFLAGS
 # --enable-x86-64 (not supported together with --enable-sep)
 # --enable-debugger --enable-iodebug --enable-x86-debugger (slowdowns emulation)
 # --enable-apic (no need to specify, configure will choose best depending on nr cpus)
+
+WXGTK2CONFIG=""
+[ -x /usr/bin/wx-gtk2-ansi-config ] && WXGTK2CONFIG=wx-gtk2-ansi-config
+[ -x /usr/bin/wxgtk-2.4-config ] && WXGTK2CONFIG=wxgtk-2.4-config
+
+[ "x$WXGTK2CONFIG" == "x" ] && echo "Can't find wxGTK2 config file!" && exit 1
+
 %configure \
-	WX_CONFIG=wxgtk2-2.4-config \
+	WX_CONFIG=$WXGTK2CONFIG \
 	--enable-config-interface \
 	--enable-new-pit \
 	--enable-plugins \
