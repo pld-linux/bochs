@@ -7,12 +7,12 @@
 Summary:	Portable x86 PC Emulator
 Summary(pl):	Przeno¶ny emulator x86 PC
 Name:		bochs
-Version:	2.2
-Release:	2
+Version:	2.2.1
+Release:	1
 License:	GPL
 Group:		Applications/Emulators
 Source0:	http://dl.sourceforge.net/bochs/%{name}-%{version}.tar.gz
-# Source0-md5:	2f0d82bda2193242a2d7ece1917016c1
+# Source0-md5:	50484c75d8175fcd97a81432ac18fb71
 Patch0:		%{name}-instrumentation.patch
 URL:		http://bochs.sourceforge.net/
 BuildRequires:	SDL-devel
