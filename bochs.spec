@@ -13,7 +13,6 @@ License:	GPL
 Group:		Applications/Emulators
 Source0:	http://dl.sourceforge.net/bochs/%{name}-%{version}.tar.gz
 # Source0-md5:	50484c75d8175fcd97a81432ac18fb71
-Patch0:		%{name}-instrumentation.patch
 URL:		http://bochs.sourceforge.net/
 BuildRequires:	SDL-devel
 BuildRequires:	XFree86-devel
@@ -43,7 +42,6 @@ Twoim komputerze.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 cp -f /usr/share/automake/config.sub .
