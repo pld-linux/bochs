@@ -111,7 +111,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	docdir=%{_docdir}/%{name}-%{version}
 
-mv -f $RPM_BUILD_ROOT%{_datadir}/bochs/VGABIOS*{LICENSE,README,latest} \
+mv -f $RPM_BUILD_ROOT%{_datadir}/bochs/VGABIOS*{LICENSE,README} \
 	$RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
 cp -f TESTFORM.txt $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
