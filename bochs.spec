@@ -7,12 +7,12 @@
 Summary:	Portable x86 PC Emulator
 Summary(pl):	Przeno¶ny emulator x86 PC
 Name:		bochs
-Version:	2.2.1
-Release:	2
+Version:	2.2.6
+Release:	1
 License:	GPL
 Group:		Applications/Emulators
 Source0:	http://dl.sourceforge.net/bochs/%{name}-%{version}.tar.gz
-# Source0-md5:	50484c75d8175fcd97a81432ac18fb71
+# Source0-md5:	961482eb78b55fe3e0e0639e34b4c2c1
 URL:		http://bochs.sourceforge.net/
 BuildRequires:	SDL-devel
 BuildRequires:	XFree86-devel
@@ -61,7 +61,6 @@ WXGTK2CONFIG=""
 
 %configure \
 	WX_CONFIG=$WXGTK2CONFIG \
-	--enable-config-interface \
 	--enable-new-pit \
 	--enable-plugins \
 	--enable-cpu-level=6 \
