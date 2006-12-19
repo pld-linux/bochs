@@ -16,18 +16,18 @@ Source0:	http://dl.sourceforge.net/bochs/%{name}-%{version}.tar.gz
 Patch0:		%{name}-wx.patch
 URL:		http://bochs.sourceforge.net/
 BuildRequires:	SDL-devel
-BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	docbook-dtd41-sgml
-BuildRequires:	gtk+2-devel
+BuildRequires:	gtk+2-devel >= 1:2.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel
+BuildRequires:	pkgconfig
 %{?with_svga:BuildRequires:	svgalib-devel}
 BuildRequires:	wxGTK2-devel
+#BuildRequires:	xorg-???-devel
 BuildRequires:	zlib-devel
-BuildRequires:	pkgconfig
-Requires:	XFree86-fonts
+#Requires:	xorg-font-???
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
