@@ -5,7 +5,7 @@
 %bcond_without	svga	# without svgalib support
 #
 Summary:	Portable x86 PC Emulator
-Summary(pl):	Przeno¶ny emulator x86 PC
+Summary(pl.UTF-8):   PrzenoÅ›ny emulator x86 PC
 Name:		bochs
 Version:	2.3
 Release:	0.1
@@ -35,9 +35,9 @@ Bochs is a portable x86 PC emulation software package that emulates
 enough of the x86 CPU, related AT hardware, and BIOS to run DOS,
 Windows '95, Minix 2.0, and other OS's, all on your workstation.
 
-%description -l pl
-Bochs jest przeno¶nym emulatorem x86 PC emuluj±cym wystarczaj±co du¿o
-architektury procesora x86 oraz hardware'u AT i BIOS-u ¿eby uruchomiæ
+%description -l pl.UTF-8
+Bochs jest przenoÅ›nym emulatorem x86 PC emulujÄ…cym wystarczajÄ…co duÅ¼o
+architektury procesora x86 oraz hardware'u AT i BIOS-u Å¼eby uruchomiÄ‡
 DOS-a, Windows 95, Minix 2.0 i inne systemy operacyjne, wszystkie na
 Twoim komputerze.
 
