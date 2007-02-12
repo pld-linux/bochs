@@ -5,7 +5,7 @@
 %bcond_without	svga	# without svgalib support
 #
 Summary:	Portable x86 PC Emulator
-Summary(pl.UTF-8):   Przenośny emulator x86 PC
+Summary(pl.UTF-8):	Przenośny emulator x86 PC
 Name:		bochs
 Version:	2.3
 Release:	0.1
