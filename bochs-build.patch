@@ -1,0 +1,11 @@
+--- bochs-2.8/instrument/stubs/instrument.cc.orig	2024-03-10 07:59:37.000000000 +0100
++++ bochs-2.8/instrument/stubs/instrument.cc	2024-03-26 20:47:30.140134418 +0100
+@@ -24,6 +24,8 @@
+ 
+ #if BX_INSTRUMENTATION
+ 
++class bxInstruction_c;
++
+ void bx_instr_init_env(void) {}
+ void bx_instr_exit_env(void) {}
+ 
