@@ -1,30 +1,35 @@
 # TODO:
 #	- more subpackages (plugins)
 #
+# Conditonal build:
+%bcond_without	system_libslirp	# system libslirp instead of builtin
+
 Summary:	Portable x86 PC Emulator
 Summary(pl.UTF-8):	Przenośny emulator x86 PC
 Name:		bochs
-Version:	2.8
+Version:	3.0
 Release:	1
 License:	LGPL v2+
 Group:		Applications/Emulators
 Source0:	https://downloads.sourceforge.net/bochs/%{name}-%{version}.tar.gz
-# Source0-md5:	c65bc348938b5677f86feaef51c43efe
-Patch0:		%{name}-build.patch
+# Source0-md5:	407a010ab5cdb78e8ca8795dafdc3323
 URL:		https://bochs.sourceforge.net/
-BuildRequires:	SDL2-devel >= 2
+BuildRequires:	SDL2-devel >= 2.0.5
 BuildRequires:	alsa-lib-devel
 BuildRequires:	autoconf >= 2.71
 BuildRequires:	automake
 BuildRequires:	docbook-dtd41-sgml
 BuildRequires:	gtk+3-devel >= 3.0
 BuildRequires:	libltdl-devel
+# or soxr (libsamplerate is preferred)
 BuildRequires:	libsamplerate-devel
+%{?with_system_libslirp:BuildRequires:	libslirp-devel}
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 BuildRequires:	libvncserver-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	pkgconfig
+BuildRequires:	pulseaudio-devel
 BuildRequires:	wxGTK3-unicode-devel
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXpm-devel
@@ -48,7 +53,6 @@ Twoim komputerze.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 cp -f /usr/share/automake/config.sub .
@@ -60,28 +64,38 @@ CPPFLAGS="%{rpmcppflags} -I/usr/include/ncurses"
 	WX_CONFIG="wx-gtk3-unicode-config" \
 	--enable-3dnow \
 	--enable-all-optimizations \
+	--enable-amx \
+	--enable-avx \
 	--enable-cdrom \
+	--enable-cet \
 	--enable-clgd54xx \
 	--enable-cpu-level=6 \
 	--enable-e1000 \
 	--enable-es1370 \
+	--enable-evex \
 %ifarch %{ix86}
 	--enable-fast-function-calls \
 %endif
 	--enable-fpu \
 	--enable-gameport \
 	--enable-instrumentation \
+	--enable-memtype \
 	--enable-monitor-mwait \
 	--enable-ne2000 \
 	--enable-pci \
 	--enable-plugins \
+	--enable-protection-keys \
 	--enable-readline \
 	--enable-repeat-speedups \
 	--enable-sb16 \
 	--enable-smp \
+	--enable-svm \
+	--enable-uintr \
 	--enable-usb \
 	--enable-usb-ehci \
 	--enable-usb-xhci \
+	%{?with_system_libslirp:--enable-using-libslirp} \
+	--enable-vmx=2 \
 	--enable-voodoo \
 	--enable-x86-64 \
 	--with-rfb \
@@ -101,6 +115,7 @@ rm -rf $RPM_BUILD_ROOT
 	docdir=%{_docdir}/%{name}-%{version}
 
 %{__mv} $RPM_BUILD_ROOT%{_datadir}/bochs/VGABIOS*-{LICENSE,README} \
+	$RPM_BUILD_ROOT%{_datadir}/bochs/README-i440fx \
 	$RPM_BUILD_ROOT%{_datadir}/bochs/Sea*BIOS-README \
 	$RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
@@ -151,6 +166,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/%{name}/plugins/libbx_sounddummy.so*
 %attr(755,root,root) %{_libdir}/%{name}/plugins/libbx_soundfile.so*
 %attr(755,root,root) %{_libdir}/%{name}/plugins/libbx_soundoss.so*
+# R: pulseaudio-libs
+%attr(755,root,root) %{_libdir}/%{name}/plugins/libbx_soundpulse.so*
 # R: SDL2
 %attr(755,root,root) %{_libdir}/%{name}/plugins/libbx_soundsdl.so*
 # -- generic plugins
@@ -190,11 +207,13 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/%{name}/plugins/libbx_usb_xhci.so*
 %attr(755,root,root) %{_libdir}/%{name}/plugins/libbx_vga.so*
 %attr(755,root,root) %{_libdir}/%{name}/plugins/libbx_voodoo.so*
+
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/keymaps
 %{_datadir}/%{name}/BIOS-*
 %{_datadir}/%{name}/VGABIOS-*
 %{_datadir}/%{name}/bios.bin*
+%{_datadir}/%{name}/i440fx.bin
 %{_datadir}/%{name}/vgabios-*.bin*
 %{_mandir}/man1/bochs.1*
 %{_mandir}/man1/bochs-dlx.1*
