@@ -8,7 +8,7 @@ Summary:	Portable x86 PC Emulator
 Summary(pl.UTF-8):	Przenośny emulator x86 PC
 Name:		bochs
 Version:	3.0
-Release:	1
+Release:	2
 License:	LGPL v2+
 Group:		Applications/Emulators
 Source0:	https://downloads.sourceforge.net/bochs/%{name}-%{version}.tar.gz
